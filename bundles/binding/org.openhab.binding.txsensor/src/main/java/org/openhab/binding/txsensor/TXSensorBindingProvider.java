@@ -6,7 +6,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.txweather;
+package org.openhab.binding.txsensor;
 
 import org.openhab.core.binding.BindingProvider;
 
@@ -14,6 +14,6 @@ import org.openhab.core.binding.BindingProvider;
  * @author MaJo
  * @since 1.4.0
  */
-public interface TXWeatherBindingProvider extends BindingProvider {
-		public TXWeatherBindingConfig getConfigForSensor(int type, int address);
+public interface TXSensorBindingProvider extends BindingProvider {
+		public TXSensorBindingConfig getConfigForSensor(int type, int address);
 }

@@ -9,15 +9,15 @@
 	</parent>
 
 	<properties>
-		<bundle.symbolicName>org.openhab.binding.txweather</bundle.symbolicName>
-		<bundle.namespace>org.openhab.binding.txweather</bundle.namespace>
+		<bundle.symbolicName>org.openhab.binding.txsensor</bundle.symbolicName>
+		<bundle.namespace>org.openhab.binding.txsensor</bundle.namespace>
 	</properties>
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>org.openhab.binding</groupId>
-	<artifactId>org.openhab.binding.txweather</artifactId>
+	<artifactId>org.openhab.binding.txsensor</artifactId>
 
-	<name>openHAB TXWeather Binding</name>
+	<name>openHAB TXSensor Binding</name>
 
 	<packaging>eclipse-plugin</packaging>
 

@@ -6,13 +6,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.txweather.internal;
+package org.openhab.binding.txsensor.internal;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import org.openhab.binding.txweather.TXWeatherBindingConfig;
-import org.openhab.binding.txweather.TXWeatherBindingProvider;
+import org.openhab.binding.txsensor.TXSensorBindingConfig;
+import org.openhab.binding.txsensor.TXSensorBindingProvider;
 import org.openhab.core.items.Item;
 import org.openhab.core.library.items.NumberItem;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
@@ -24,16 +24,16 @@ import org.openhab.model.item.binding.BindingConfigParseException;
  * @author MaJo
  * @since 1.4.0
  */
-public class TXWeatherGenericBindingProvider extends
-		AbstractGenericBindingProvider implements TXWeatherBindingProvider {
+public class TXSensorGenericBindingProvider extends
+		AbstractGenericBindingProvider implements TXSensorBindingProvider {
 
-	private Map<Integer, TXWeatherBindingConfig> addressMap = new HashMap<Integer, TXWeatherBindingConfig>();
+	private Map<Integer, TXSensorBindingConfig> addressMap = new HashMap<Integer, TXSensorBindingConfig>();
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	public String getBindingType() {
-		return "txweather";
+		return "txsensor";
 	}
 
 	/**
@@ -58,7 +58,7 @@ public class TXWeatherGenericBindingProvider extends
 	}
 
 	/**
-	 * Binding config is in the style of {txweather="TAA"} {@inheritDoc}
+	 * Binding config is in the style of {txsensor="TAA"} {@inheritDoc}
 	 */
 	@Override
 	public void processBindingConfiguration(String context, Item item,
@@ -68,7 +68,7 @@ public class TXWeatherGenericBindingProvider extends
 		int type = Integer.parseInt(bindingConfig.substring(0, 1), 16);
 		int address = Integer.parseInt(bindingConfig.substring(1), 16);
 		
-		TXWeatherBindingConfig config = new TXWeatherBindingConfig(item, type,
+		TXSensorBindingConfig config = new TXSensorBindingConfig(item, type,
 				address);
 
 		// parse bindingconfig here ...
@@ -77,7 +77,7 @@ public class TXWeatherGenericBindingProvider extends
 	}
 
 	@Override
-	public TXWeatherBindingConfig getConfigForSensor(int type, int address) {
+	public TXSensorBindingConfig getConfigForSensor(int type, int address) {
 		
 		return addressMap.get(generateKey(type, address));
 	}

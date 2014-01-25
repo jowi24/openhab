@@ -6,13 +6,13 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.txweather.internal;
+package org.openhab.binding.txsensor.internal;
 
 import java.util.Dictionary;
 
 import org.apache.commons.lang.StringUtils;
-import org.openhab.binding.txweather.TXWeatherBindingConfig;
-import org.openhab.binding.txweather.TXWeatherBindingProvider;
+import org.openhab.binding.txsensor.TXSensorBindingConfig;
+import org.openhab.binding.txsensor.TXSensorBindingProvider;
 import org.openhab.core.binding.AbstractActiveBinding;
 import org.openhab.core.library.types.DecimalType;
 import org.openhab.core.types.Command;
@@ -35,28 +35,28 @@ import org.slf4j.LoggerFactory;
  * @author MaJo
  * @since 1.4.0
  */
-public class TXWeatherBinding extends AbstractActiveBinding<TXWeatherBindingProvider> implements ManagedService, CULListener {
+public class TXSensorBinding extends AbstractActiveBinding<TXSensorBindingProvider> implements ManagedService, CULListener {
 
 	private static final Logger logger = 
-		LoggerFactory.getLogger(TXWeatherBinding.class);
+		LoggerFactory.getLogger(TXSensorBinding.class);
 	
 	private CULHandler cul;
 	private final static String KEY_DEVICE_NAME = "device";
 	private String deviceName;
 	
 	/** 
-	 * the refresh interval which is used to poll values from the TXWeather
+	 * the refresh interval which is used to poll values from the TXSensor
 	 * server (optional, defaults to 60000ms)
 	 */
 	private long refreshInterval = 60000;
 	
 	
-	public TXWeatherBinding() {
+	public TXSensorBinding() {
 	}
 		
 	
 	public void activate() {
-		logger.debug("Activating TXWeather binding");
+		logger.debug("Activating TXSensor binding");
 	}
 
 	private void getCULHandler() {
@@ -93,7 +93,7 @@ public class TXWeatherBinding extends AbstractActiveBinding<TXWeatherBindingProv
 	 */
 	@Override
 	protected String getName() {
-		return "TXWeather Refresh Service";
+		return "TXSensor Refresh Service";
 	}
 	
 	/**
@@ -171,7 +171,7 @@ public class TXWeatherBinding extends AbstractActiveBinding<TXWeatherBindingProv
 	public void dataReceived(String data) {
 		// It is possible that we see here messages of other protocols
 		if (data.startsWith("tA")) {
-			logger.debug("Received TXWeather message: " + data);
+			logger.debug("Received TXSensor message: " + data);
 			handleReceivedMessage(data);
 		}
 	}
@@ -197,8 +197,8 @@ public class TXWeatherBinding extends AbstractActiveBinding<TXWeatherBindingProv
 			}
 		}
 
-		TXWeatherBindingConfig config = null;
-		for (TXWeatherBindingProvider provider : providers) {
+		TXSensorBindingConfig config = null;
+		for (TXSensorBindingProvider provider : providers) {
 			config = provider.getConfigForSensor(type, address);
 			if (config != null) {
 				break;

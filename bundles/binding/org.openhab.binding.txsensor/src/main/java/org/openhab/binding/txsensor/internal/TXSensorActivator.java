@@ -6,7 +6,7 @@
  * which accompanies this distribution, and is available at
  * http://www.eclipse.org/legal/epl-v10.html
  */
-package org.openhab.binding.txweather.internal;
+package org.openhab.binding.txsensor.internal;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -20,9 +20,9 @@ import org.slf4j.LoggerFactory;
  * @author MaJo
  * @since 1.4.0
  */
-public final class TXWeatherActivator implements BundleActivator {
+public final class TXSensorActivator implements BundleActivator {
 
-	private static Logger logger = LoggerFactory.getLogger(TXWeatherActivator.class); 
+	private static Logger logger = LoggerFactory.getLogger(TXSensorActivator.class); 
 	
 	private static BundleContext context;
 	
@@ -31,7 +31,7 @@ public final class TXWeatherActivator implements BundleActivator {
 	 */
 	public void start(BundleContext bc) throws Exception {
 		context = bc;
-		logger.debug("TXWeather binding has been started.");
+		logger.debug("TXSensor binding has been started.");
 	}
 
 	/**
@@ -39,7 +39,7 @@ public final class TXWeatherActivator implements BundleActivator {
 	 */
 	public void stop(BundleContext bc) throws Exception {
 		context = null;
-		logger.debug("TXWeather binding has been stopped.");
+		logger.debug("TXSensor binding has been stopped.");
 	}
 	
 	/**

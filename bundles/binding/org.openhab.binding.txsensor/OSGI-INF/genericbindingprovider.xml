@@ -9,12 +9,12 @@
     http://www.eclipse.org/legal/epl-v10.html
 
 -->
-<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.openhab.binding.txweather.genericbindingprovider">
-   <implementation class="org.openhab.binding.txweather.internal.TXWeatherGenericBindingProvider"/>
+<scr:component xmlns:scr="http://www.osgi.org/xmlns/scr/v1.1.0" name="org.openhab.binding.txsensor.genericbindingprovider">
+   <implementation class="org.openhab.binding.txsensor.internal.TXSensorGenericBindingProvider"/>
    
    <service>
       <provide interface="org.openhab.model.item.binding.BindingConfigReader"/>
-      <provide interface="org.openhab.binding.txweather.TXWeatherBindingProvider"/>
+      <provide interface="org.openhab.binding.txsensor.TXSensorBindingProvider"/>
    </service>
    
 </scr:component>
