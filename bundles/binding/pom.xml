@@ -95,6 +95,7 @@
     <module>org.openhab.binding.netatmo</module>
     <module>org.openhab.binding.netatmo.test</module>
 	<module>org.openhab.binding.culraw</module>
+    <module>org.openhab.binding.txsensor</module>
   </modules>
 
 </project>
