@@ -79,7 +79,6 @@ public class CULRawBinding extends AbstractActiveBinding<CULRawBindingProvider>
 	@Override
 	protected void execute() {
 		// the frequently executed code (polling) goes here ...
-		logger.debug("execute() method is called!");
 	}
 
 	/**
