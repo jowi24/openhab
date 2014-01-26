@@ -74,7 +74,7 @@ public class TXSensorBinding extends AbstractActiveBinding<TXSensorBindingProvid
 	public void deactivate() {
 		// deallocate resources here that are no longer needed and 
 		// should be reset when activating this binding again
-		logger.debug("Deactivating FS20 binding");
+		logger.debug("Deactivating TXSensor binding");
 		cul.unregisterListener(this);
 		CULManager.close(cul);
 }
@@ -178,21 +178,25 @@ public class TXSensorBinding extends AbstractActiveBinding<TXSensorBindingProvid
 
 	private void handleReceivedMessage(String message) {
 		// TX3 temperature sensor, example tA0396316381A
-		String bindingConfig = message.substring(2, 5);
 		int type  = Integer.parseInt(message.substring(2, 3),16);
-		int address = Integer.parseInt(message.substring(3, 5),16) & 0xFE;
+		String readableType = null;
+		String rawAddress = message.substring(3, 5);
+		int address = Integer.parseInt(rawAddress,16) & 0xFE;
 		double value = 0.0;
 		switch (type){
 			case 0x00:{ //temperature
-		 		value = (Integer.parseInt(message.substring(5, 8)) - 500) / 10.0;	
+		 		value = (Integer.parseInt(message.substring(5, 8)) - 500) / 10.0;
+		 		readableType = "temperature";
 		 		break;
 			}
-			case 0x01:{ // pressure
+			case 0x01:{ //pressure
 				value = (Integer.parseInt(message.substring(5, 10)) + 50000) / 100.0;
+				readableType = "pressure";
 				break;
 			}
 			case 0x0E:{ //humidity
 				value = (Integer.parseInt(message.substring(5, 8))) / 10.0;
+				readableType = "humidity";
 				break;
 			}
 		}
@@ -208,7 +212,8 @@ public class TXSensorBinding extends AbstractActiveBinding<TXSensorBindingProvid
 			eventPublisher.postUpdate(config.getItem().getName(),
 					new DecimalType(value));
 		} else {
-			logger.debug("Received message for unknown binding config " + bindingConfig);
+			logger.warn("No item bound to handle message: " + message);
+			logger.info("A correct binding configuration would be: {txsensor=\"type="+readableType+";address=0x"+rawAddress+"\"}");
 		}
 	}
 
