@@ -17,6 +17,8 @@ import org.openhab.core.items.Item;
 import org.openhab.core.library.items.NumberItem;
 import org.openhab.model.item.binding.AbstractGenericBindingProvider;
 import org.openhab.model.item.binding.BindingConfigParseException;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * This class is responsible for parsing the binding configuration.
@@ -28,7 +30,9 @@ public class TXSensorGenericBindingProvider extends
 		AbstractGenericBindingProvider implements TXSensorBindingProvider {
 
 	private Map<Integer, TXSensorBindingConfig> addressMap = new HashMap<Integer, TXSensorBindingConfig>();
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(TXSensorGenericBindingProvider.class);
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -50,35 +54,65 @@ public class TXSensorGenericBindingProvider extends
 							+ item.getClass().getSimpleName()
 							+ "', only NumberItems are allowed - please check your *.items configuration");
 		}
-
-		if (bindingConfig.length() != 3) {
-			throw new BindingConfigParseException(
-					"The configured address must consist of 1 bytes type and 2 byte device address");
-		}
 	}
 
 	/**
-	 * Binding config is in the style of {txsensor="TAA"} {@inheritDoc}
+	 * Binding config is in the style of <br>
+	 * <code>{{@literal txsensor="type=<temperature|humidity|pressure>;address=<address>"}}</code> <br>
+	 * where address can be given decimal or hexadecimal (0x-prefixed).
+	 * {@inheritDoc}
 	 */
 	@Override
 	public void processBindingConfiguration(String context, Item item,
 			String bindingConfig) throws BindingConfigParseException {
 		super.processBindingConfiguration(context, item, bindingConfig);
 
-		int type = Integer.parseInt(bindingConfig.substring(0, 1), 16);
-		int address = Integer.parseInt(bindingConfig.substring(1), 16);
-		
+		String[] configParts = bindingConfig.split(";");
+		int type = 0;
+		int address = 0;
+		for (String configPart : configParts) {
+			String[] nameValue = configPart.split("=");
+			if (nameValue[0].equals("type")) {
+				switch (nameValue[1]) {
+				case "temperature":
+					type = 0x0;
+					break;
+				case "humidity":
+					type = 0xE;
+					break;
+				case "pressure":
+					type = 0x1;
+					break;
+				default:
+					if (nameValue[1].startsWith("0x")) {
+						type = Integer.parseInt(nameValue[1].substring(2), 16);
+					} else {
+						logger.error("Unknown value " + nameValue[1]
+								+ " in binding for item " + item.getName()
+								+ ".");
+					}
+				}
+			} else if (nameValue[0].equals("address")) {
+				if (nameValue[1].startsWith("0x")) {
+					address = Integer.parseInt(nameValue[1].substring(2), 16) & 0xFE;
+				} else {
+					address = Integer.parseInt(nameValue[1]) & 0xFE;
+				}
+			} else {
+				logger.error("Unknown parameter " + configPart
+						+ " in binding for item " + item.getName() + ".");
+			}
+		}
+
 		TXSensorBindingConfig config = new TXSensorBindingConfig(item, type,
 				address);
 
-		// parse bindingconfig here ...
 		addressMap.put(generateKey(type, address), config);
 		addBindingConfig(item, config);
 	}
 
 	@Override
 	public TXSensorBindingConfig getConfigForSensor(int type, int address) {
-		
 		return addressMap.get(generateKey(type, address));
 	}
 
