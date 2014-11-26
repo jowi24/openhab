@@ -31,7 +31,27 @@ public class BaseSqueezePlayerEventListener implements SqueezePlayerEventListene
 	@Override
 	public void muteChangeEvent(PlayerEvent event) {
 	}
-
+	
+	@Override
+	public void currentPlaylistIndexEvent(PlayerEvent event) {
+	}
+	
+	@Override
+	public void currentPlayingTimeEvent(PlayerEvent event) {
+	}
+	
+	@Override
+	public void numberPlaylistTracksEvent(PlayerEvent event) {
+	}
+	
+	@Override
+	public void currentPlaylistShuffleEvent(PlayerEvent event) {
+	}
+	
+	@Override
+	public void currentPlaylistRepeatEvent(PlayerEvent event) {
+	}
+	
 	@Override
 	public void titleChangeEvent(PlayerEvent event) {
 	}
@@ -58,5 +78,9 @@ public class BaseSqueezePlayerEventListener implements SqueezePlayerEventListene
 
 	@Override
 	public void remoteTitleChangeEvent(PlayerEvent event) {
+	}
+	
+	@Override
+	public void irCodeChangeEvent(PlayerEvent event) {
 	}
 }

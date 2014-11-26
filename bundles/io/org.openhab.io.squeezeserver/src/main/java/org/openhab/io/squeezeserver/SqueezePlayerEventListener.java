@@ -21,7 +21,12 @@ public interface SqueezePlayerEventListener {
 	 void modeChangeEvent(PlayerEvent event);
 	 void volumeChangeEvent(PlayerEvent event);
 	 void muteChangeEvent(PlayerEvent event);
-
+	 void currentPlaylistIndexEvent(PlayerEvent event);
+	 void currentPlayingTimeEvent(PlayerEvent event);
+	 void numberPlaylistTracksEvent(PlayerEvent event);
+	 void currentPlaylistShuffleEvent(PlayerEvent event);
+	 void currentPlaylistRepeatEvent(PlayerEvent event);
+	 
 	 void titleChangeEvent(PlayerEvent event);
 	 void albumChangeEvent(PlayerEvent event);	 
 	 void artistChangeEvent(PlayerEvent event);	 
@@ -29,5 +34,5 @@ public interface SqueezePlayerEventListener {
 	 void yearChangeEvent(PlayerEvent event);
 	 void genreChangeEvent(PlayerEvent event);
 	 void remoteTitleChangeEvent(PlayerEvent event);
-     
+	 void irCodeChangeEvent(PlayerEvent event);
 }

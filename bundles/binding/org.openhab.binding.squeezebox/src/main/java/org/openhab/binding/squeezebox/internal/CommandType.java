@@ -9,6 +9,7 @@
 package org.openhab.binding.squeezebox.internal;
 
 import org.apache.commons.lang.StringUtils;
+import org.openhab.model.item.binding.BindingConfigParseException;
 
 /**
  * Represents all valid commands which could be processed by this binding
@@ -30,6 +31,11 @@ public enum CommandType {
 	FILE("file"),
 	HTTP("http"),
 	SYNC("sync"),
+	SHUFFLE("shuffle"),
+	REPEAT("repeat"),
+	NUMTRACKS("numbertracks"),
+	PLAYTIME("time"),
+	CURRTRACK("currentrack"),
 			
 	TITLE("title"),	
 	ARTIST("artist"),
@@ -37,7 +43,9 @@ public enum CommandType {
 	COVERART("coverart"),
 	YEAR("year"),
 	REMOTETITLE("remotetitle"),
-	GENRE("genre");
+	GENRE("genre"),
+	
+	IRCODE("ircode");
 	
 	/** Represents the player command as it will be used in *.items configuration */
 	String command;
@@ -50,7 +58,7 @@ public enum CommandType {
 		return command;
 	}
 	
-	public static CommandType fromString(String command) {
+	public static CommandType fromString(String command) throws BindingConfigParseException {
 		if (!StringUtils.isEmpty(command)) {
 			for (CommandType commandType : CommandType.values()) {
 				if (commandType.getCommand().equals(command)) {
@@ -59,6 +67,6 @@ public enum CommandType {
 			}
 		}
 		
-		throw new IllegalArgumentException("Invalid command: " + command);
+		throw new BindingConfigParseException("Invalid command: " + command);
 	}
 }
