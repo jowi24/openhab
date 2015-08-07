@@ -83,6 +83,9 @@ public class TXSensorGenericBindingProvider extends
 				case "pressure":
 					type = 0x1;
 					break;
+				case "brightness":
+					type = 0x2;
+					break;
 				default:
 					if (nameValue[1].startsWith("0x")) {
 						type = Integer.parseInt(nameValue[1].substring(2), 16);

@@ -194,6 +194,11 @@ public class TXSensorBinding extends AbstractActiveBinding<TXSensorBindingProvid
 				readableType = "pressure";
 				break;
 			}
+			case 0x02:{ //brightness
+				value = (Integer.parseInt(message.substring(5, 10)));
+				readableType = "brightness";
+				break;
+			}
 			case 0x0E:{ //humidity
 				value = (Integer.parseInt(message.substring(5, 8))) / 10.0;
 				readableType = "humidity";
