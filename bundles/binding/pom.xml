@@ -158,5 +158,6 @@
     <module>org.openhab.binding.lightwaverf</module>
 	<module>org.openhab.binding.souliss</module>
     <module>org.openhab.binding.txsensor</module>
+	<module>org.openhab.binding.culraw</module>
   </modules>
 </project>
