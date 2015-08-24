@@ -115,10 +115,7 @@ public class WeatherPublisher {
 									}
 								}
 
-								if (!equalsCachedValue(value, itemName)) {
-									publishValue(itemName, value, bindingConfig);
-									itemCache.put(itemName, value);
-								}
+								publishValue(itemName, value, bindingConfig);
 							}
 						} catch (Exception ex) {
 							logger.warn(ex.getMessage(), ex);
